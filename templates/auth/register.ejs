@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+
+<header class="bg-light">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between py-3 container">
+
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <span class="fs-4">MyForum</span>
+        </a>
+
+    </div>
+
+</header>
+
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+
+            <form action="" method="post">
+                <h1 class="mb-3 fw-normal">Please sign up</h1>
+
+                <div class="mb-3">
+                    <label for="input-username">Username</label>
+                    <input type="text" name="username" class="form-control <%= fieldErrors && fieldErrors.username ? 'is-invalid' : '' %>" id="input-username" placeholder="John Doe" value="<%= values && values.username ? values.username : '' %>">
+
+                    <% if (fieldErrors && fieldErrors.username) { %>
+                        <div class="invalid-feedback">
+                            <%= fieldErrors.username %>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div class="mb-3">
+                    <label for="input-email">Email address</label>
+                    <input type="email" name="email" class="form-control <%= fieldErrors && fieldErrors.email ? 'is-invalid' : '' %>" id="input-email" placeholder="name@example.com" value="<%= values && values.email ? values.email : '' %>">
+
+                    <% if (fieldErrors && fieldErrors.email) { %>
+                        <div class="invalid-feedback">
+                            <%= fieldErrors.email %>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div class="mb-3">
+                    <label for="input-password">Password</label>
+                    <input type="password" name="password" class="form-control <%= fieldErrors && fieldErrors.password ? 'is-invalid' : '' %>" id="input-password" placeholder="************">
+
+                    <% if (fieldErrors && fieldErrors.password) { %>
+                        <div class="invalid-feedback">
+                            <%= fieldErrors.password %>
+                        </div>
+                    <% } %>
+                </div>
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+
+                <p class="text-center text-body-secondary mt-4">
+                    Already have an account?
+                    <a href="/login">Sign in</a>
+                </p>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+<div class="container">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">© 2026 Company, Inc</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

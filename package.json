@@ -1,0 +1,24 @@
+{
+    "name": "mon-client-nodejs",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development nodemon app.js",
+        "prod": "cross-env NODE_ENV=production nodemon app.js",
+        "start": "npm run lint && npm run dev",
+        "lint": "eslint . --fix"
+    },
+    "dependencies": {
+        "axios": "^1.13.6",
+        "cross-env": "^10.1.0",
+        "dotenv": "^17.3.1",
+        "ejs": "^5.0.1",
+        "eslint": "^10.0.2",
+        "express": "^5.2.1",
+        "morgan": "^1.10.1",
+        "nodemon": "^3.1.14"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "globals": "^17.4.0"
+    }
+}
