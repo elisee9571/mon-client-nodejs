@@ -1,0 +1,17 @@
+<% const current = values || {}; %>
+
+<form action="/comments/posts/<%= post._id %>" method="post" class="mb-3">
+    <div class="mb-3">
+        <label for="input-message" class="form-label">Add a comment</label>
+        <textarea name="message" id="input-message" rows="3"
+                  class="form-control <%= fieldErrors?.message ? 'is-invalid' : '' %>" placeholder="Write your comment..."><%= values?.message || '' %></textarea>
+
+        <% if (fieldErrors?.message) { %>
+            <div class="invalid-feedback">
+                <%= fieldErrors.message %>
+            </div>
+        <% } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>

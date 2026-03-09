@@ -1,0 +1,17 @@
+<%- include("./partials/_header") %>
+
+<main class="container py-4">
+    <h1 class="fw-normal mb-3">
+        <%= title %>
+    </h1>
+
+    <h2 class="fw-normal mb-3">
+        <%= error.message %>
+    </h2>
+
+    <pre class="lead">
+        <%= error.stack %>
+    </pre>
+</main>
+
+<%- include("./partials/_footer") %>

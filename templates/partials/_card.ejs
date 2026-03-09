@@ -1,0 +1,28 @@
+<article class="card mb-3">
+    <div class="card-body">
+
+        <header class="d-flex justify-content-between align-items-start mb-2">
+            <h2 class="h5 mb-0">
+                <a href="/posts/<%= post._id %>" class="text-decoration-none">
+                    <%= post.title %>
+                </a>
+            </h2>
+
+            <time datetime="<%= post.createdAt %>" class="text-muted">
+                <%= new Date(post.createdAt).toLocaleDateString() %>
+            </time>
+        </header>
+
+        <p class="card-text text-muted">
+            <% const text=post.content.replace(/<[^>]*>/g, " ");%>
+            <%= text.length > 180 ? text.substring(0, 180) + "..." : text %>
+        </p>
+
+        <footer class="d-flex align-items-center mt-3">
+            <span class="text-muted">
+                Author : <%= post._userId?.username || "Unknown" %>
+            </span>
+        </footer>
+
+    </div>
+</article>

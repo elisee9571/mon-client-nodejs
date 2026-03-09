@@ -1,0 +1,16 @@
+<%- include("../partials/_header") %>
+
+<main class="container my-4">
+    <div class="d-flex justify-content-between align-items-baseline mb-4">
+        <h1 class="mb-0 fw-normal"><%= title %></h1>
+        <a href="/posts/new" class="btn btn-primary">Create post</a>
+    </div>
+
+    <%- include('../partials/_pagination') %>
+
+    <% posts.forEach(post => { %>
+        <%- include('../partials/_card', { post }) %>
+    <% }) %>
+</main>
+
+<%- include("../partials/_footer") %>

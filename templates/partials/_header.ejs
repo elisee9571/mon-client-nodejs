@@ -22,7 +22,7 @@
 
         <% if (req.session && req.session.accessToken) { %>
             <div class="col-md-3 text-end">
-                <a href="/profile" class="btn btn-outline-primary me-2">Profile</a>
+                <a href="/users/profile" class="btn btn-outline-primary me-2">Profile</a>
                 <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
         <% } else { %>

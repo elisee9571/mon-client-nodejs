@@ -1,0 +1,61 @@
+<%
+const current = values || {};
+const STATUSES = ["Publish", "Draft", "Lock"];
+%>
+
+<form action="" method="post">
+    <h1 class="mb-3 fw-normal">
+        <%= title %>
+    </h1>
+
+    <div class="mb-3">
+        <label for="input-title">Title</label>
+
+        <input type="text" name="title" id="input-title" placeholder="Post title"
+               class="form-control <%= fieldErrors && fieldErrors.title ? 'is-invalid' : '' %>"
+               value="<%= current.title || '' %>">
+
+        <% if (fieldErrors && fieldErrors.title) { %>
+            <div class="invalid-feedback">
+                <%= fieldErrors.title %>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-content">Content</label>
+
+        <textarea name="content" id="editor" rows="10" placeholder="Your content here..."
+                  class="form-control <%= fieldErrors && fieldErrors.content ? 'is-invalid' : '' %>"><%= current.content || '' %></textarea>
+
+        <% if (fieldErrors && fieldErrors.content) { %>
+            <div class="invalid-feedback">
+                <%= fieldErrors.content %>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="input-status">Status</label>
+
+        <select name="status" id="input-status"
+                class="form-select <%= fieldErrors && fieldErrors.status ? 'is-invalid' : '' %>">
+            <% STATUSES.forEach(status => { %>
+                <option value="<%= status %>" <%= current.status === status ? "selected" : "" %>
+                >
+                    <%= status %>
+                </option>
+            <% }) %>
+        </select>
+
+        <% if (fieldErrors && fieldErrors.status) { %>
+            <div class="invalid-feedback">
+                <%= fieldErrors.status %>
+            </div>
+        <% } %>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">
+        <%= buttonLabel %>
+    </button>
+</form>

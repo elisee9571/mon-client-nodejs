@@ -1,0 +1,73 @@
+<%
+const basePath = req.baseUrl + req.path;
+const currentPage = parseInt(req.query.page) || 1;
+const size = parseInt(req.query.size) || 10;
+
+const count = meta?.count ?? 0;
+const countPage = Math.ceil(count / size);
+
+const buildUrl = (page) => {
+    const params = new URLSearchParams({
+        ...req.query,
+        page: String(page),
+        size: String(size),
+    });
+
+    return `${basePath}?${params.toString()}`;
+};
+
+const start = Math.max(1, currentPage - 1);
+const end = Math.min(countPage, currentPage + 1);
+%>
+
+<% if (countPage > 1) { %>
+    <div class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination">
+
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="<%= currentPage === 1 ? '#' : buildUrl(1) %>">«</a>
+                </li>
+
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="<%= currentPage === 1 ? '#' : buildUrl(currentPage - 1) %>">Previous</a>
+                </li>
+
+                <% if (currentPage > 3) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="<%= buildUrl(1) %>">1</a>
+                    </li>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                <% } %>
+
+                <% for (let i = start; i <= end; i++) { %>
+                    <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                        <a class="page-link" href="<%= buildUrl(i) %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                <% } %>
+
+                <% if (currentPage < countPage - 2) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="<%= buildUrl(countPage) %>">
+                            <%= countPage %>
+                        </a>
+                    </li>
+                <% } %>
+
+                <li class="page-item <%= currentPage === countPage ? 'disabled' : '' %>">
+                    <a class="page-link"
+                       href="<%= currentPage === countPage ? '#' : buildUrl(currentPage + 1) %>">Next</a>
+                </li>
+
+                <li class="page-item <%= currentPage === countPage ? 'disabled' : '' %>">
+                    <a class="page-link"
+                       href="<%= currentPage === countPage ? '#' : buildUrl(countPage) %>">»</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+<% } %>

@@ -3,12 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
+const session = require("express-session");
 
 /**
  * Defined router
  * */
 const appRouter = require("./routes/app.routes");
 const authRouter = require("./routes/auth.routes");
+const usersRouter = require("./routes/users.routes");
+const postsRouter = require("./routes/posts.routes");
 
 const app = express();
 
@@ -21,6 +24,11 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+}));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
@@ -32,28 +40,32 @@ app.use((req, res, next) => {
  * Principals routes
  * */
 app.use("/", [appRouter, authRouter]);
+app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
-app.use((req, res, next) => next(res.status(404).json({
+app.use((req, res, _next) => res.status(404).render("error", {
+    title: "Error 404",
     error: {
         code: "ROUTE_NOT_FOUND",
-        message: `Route ${req.method} ${req.path} not found`,
+        message: process.env.NODE_ENV !== "production" ? `Route ${req.method} ${req.path} not found` : "Page not found",
     },
-})));
+}));
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
     const statusCode = err.statusCode || err.status || 500;
     const message =
         process.env.NODE_ENV === "production" && statusCode === 500
             ? "An unexpected error occurred"
             : err.message;
 
-    return next(res.status(statusCode).json({
+    return res.status(statusCode).render("error", {
+        title: "Error server",
         error: {
             code: err.code || "INTERNAL_SERVER_ERROR",
             message: message,
             stack: process.env.NODE_ENV !== "production" ? err.stack : undefined,
         },
-    }));
+    });
 });
 
 app.listen(process.env.PORT, () => {

@@ -18,7 +18,7 @@ exports.showLoginForm = (req, res) => res.render("auth/login", {
 });
 
 exports.register = async (req, res) => {
-    const {username, email, password} = req.body;
+    const { username, email, password } = req.body;
 
     try {
         await api.post("/auth/register", {
@@ -46,7 +46,38 @@ exports.register = async (req, res) => {
         return res.render("auth/register", {
             title: "Sign up",
             fieldErrors: fieldErrors,
-            values: {username, email},
+            values: { username, email },
         });
     }
+};
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const response = await api.post("/auth/login", {
+            email: email,
+            password: password,
+        });
+
+        const data = response?.data;
+        req.session.accessToken = data.accessToken;
+        req.session.userId = data.user._id.toString();
+
+        return res.redirect("/");
+
+    } catch (err) {
+        const data = err.response?.data;
+
+        return res.render("auth/login", {
+            title: "Sign in",
+            error: data.error?.message,
+            values: { email },
+        });
+    }
+};
+
+exports.logout = async (req, res) => {
+    await req.session.destroy();
+    return res.redirect("/");
 };
