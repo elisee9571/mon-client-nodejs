@@ -17,7 +17,7 @@
         </div>
 
         <time datetime="<%= comment.createdAt %>" class="text-muted small">
-            <%= comment.createdAt ? new Date(comment.createdAt).toLocaleString() : "" %>
+            <%= comment.createdAt ? new Date(comment.createdAt).toLocaleString("fr-FR") : "" %>
         </time>
     </header>
 
@@ -31,7 +31,7 @@
         <div class="text-muted small mt-2">
             Modifié le
             <time datetime="<%= comment.updatedAt %>">
-                <%= new Date(comment.updatedAt).toLocaleString() %>
+                <%= new Date(comment.updatedAt).toLocaleString("fr-FR") %>
             </time>
         </div>
     <% } %>

@@ -19,7 +19,7 @@
                 </h1>
 
                 <time datetime="<%= post.createdAt %>" class="text-muted small">
-                    <%= new Date(post.createdAt).toLocaleString() %>
+                    <%= new Date(post.createdAt).toLocaleString("fr-FR") %>
                 </time>
             </div>
 
@@ -30,7 +30,7 @@
                 <% if (post.updatedAt && post.updatedAt !== post.createdAt) { %>
                     • Modified on
                     <time datetime="<%= post.updatedAt %>">
-                        <%= new Date(post.updatedAt).toLocaleString() %>
+                        <%= new Date(post.updatedAt).toLocaleString("fr-FR") %>
                     </time>
                 <% } %>
             </div>
