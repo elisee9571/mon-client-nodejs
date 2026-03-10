@@ -12,6 +12,7 @@ const appRouter = require("./routes/app.routes");
 const authRouter = require("./routes/auth.routes");
 const usersRouter = require("./routes/users.routes");
 const postsRouter = require("./routes/posts.routes");
+const commentsRouter = require("./routes/comments.routes");
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
 }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 app.use("/", [appRouter, authRouter]);
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+app.use("/comments", commentsRouter);
 
 app.use((req, res, _next) => res.status(404).render("error", {
     title: "Error 404",

@@ -64,7 +64,10 @@ exports.login = async (req, res) => {
         req.session.accessToken = data.accessToken;
         req.session.userId = data.user._id.toString();
 
-        return res.redirect("/");
+        const redirectTo = req.session.returnTo || "/";
+        delete req.session.returnTo;
+
+        return res.redirect(redirectTo);
 
     } catch (err) {
         const data = err.response?.data;
